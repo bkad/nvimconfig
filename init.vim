@@ -99,3 +99,12 @@ let g:indent_guides_auto_colors = 0
 
 " Need this for vim commit editing to make backspace work for some reason
 set backspace=indent,eol,start
+
+if has("gui_vimr")
+  nmap <D-S-{> :tabprevious<cr>
+  nmap <D-S-}> :tabnext<cr>
+  map <D-S-{> :tabprevious<cr>
+  map <D-S-}> :tabnext<cr>
+  imap <D-S-{> <ESC>:tabprevious<cr>i
+  imap <D-S-}> <ESC>:tabnext<cr>i
+endif
