@@ -64,9 +64,9 @@
 [submodule "pack/bkad/start/editorconfig"]
 	path = pack/bkad/start/editorconfig
 	url = git@github.com:editorconfig/editorconfig-vim.git
-[submodule "pack/bkad/start/rope"]
-	path = pack/bkad/start/rope
-	url = git@github.com:python-rope/ropevim.git
 [submodule "pack/bkad/start/fzf"]
 	path = pack/bkad/start/fzf
 	url = https://github.com/junegunn/fzf.vim
+[submodule "pack/bkad/start/python-mode"]
+	path = pack/bkad/start/python-mode
+	url = https://github.com/python-mode/python-mode.git

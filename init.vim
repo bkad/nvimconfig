@@ -16,6 +16,9 @@ set relativenumber
 let g:zenburn_high_Contrast=1
 colorscheme zenburn
 
+let g:python_host_prog = '/Users/kevin/.local/share/virtualenvs/neovim2/bin/python'
+let g:python3_host_prog = '/Users/kevin/.local/share/virtualenvs/neovim3/bin/python'
+
 " Adjust zenburn's garish search/visual colors.
 hi IncSearch guifg=NONE guibg=#545449
 hi Search    guifg=NONE guibg=#545449
