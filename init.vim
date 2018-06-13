@@ -16,6 +16,7 @@ set relativenumber
 let g:zenburn_high_Contrast=1
 colorscheme zenburn
 
+" Pymode stuff
 let g:python_host_prog = '/Users/kevin/.local/share/virtualenvs/neovim2/bin/python'
 let g:python3_host_prog = '/Users/kevin/.local/share/virtualenvs/neovim3/bin/python'
 
@@ -111,3 +112,7 @@ if has("gui_vimr")
   imap <D-S-{> <ESC>:tabprevious<cr>i
   imap <D-S-}> <ESC>:tabnext<cr>i
 endif
+
+" https://unix.stackexchange.com/a/383044
+autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
+autocmd FileChangedShellPost * echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None

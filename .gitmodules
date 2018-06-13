@@ -67,6 +67,6 @@
 [submodule "pack/bkad/start/fzf"]
 	path = pack/bkad/start/fzf
 	url = https://github.com/junegunn/fzf.vim
-[submodule "pack/bkad/start/python-mode"]
-	path = pack/bkad/start/python-mode
-	url = https://github.com/python-mode/python-mode.git
+[submodule "pack/bkad/start/ropevim"]
+	path = pack/bkad/start/ropevim
+	url = https://github.com/python-rope/ropevim
