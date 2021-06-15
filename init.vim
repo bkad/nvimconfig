@@ -1,6 +1,3 @@
-set expandtab
-set tabstop=2
-set shiftwidth=2
 set textwidth=110
 let &wrapmargin=&textwidth
 set formatoptions=cqrol
@@ -84,6 +81,13 @@ augroup go
   au FileType go setlocal noexpandtab
 augroup END
 
+
+augroup make
+  au!
+  au FileType make setlocal noexpandtab shiftwidth=4 softtabstop=0
+augroup END
+
+
 noremap <Space> :call NERDComment("n", "Toggle")<cr>
 
 let python_highlight_all = 1
@@ -91,6 +95,10 @@ let mapleader = ','
 let g:NERDChristmasTree=1 " more colorful NERDTree
 
 autocmd FileType typescript setlocal completeopt+=menu,preview
+au BufWritePost *.ts,*.html,*.json,*.js silent !/Users/kevin/code/tbcode/tbjs/node_modules/.bin/prettier --loglevel error --write %
+au BufWritePost *.ts silent !cd /Users/kevin/code/tbcode/tbjs && /Users/kevin/code/tbcode/tbjs/node_modules/.bin/eslint --plugin 'simple-import-sort' --parser '@typescript-eslint/parser' --fix --no-eslintrc --rule '"simple-import-sort/sort": [ "error", { "groups": [ ["^\\u0000"], ["^@?\\w"], ["^@tb/.*"], ["^\\."] ] } ]' %:p
+au BufWritePost *.bazel,*.star,WORKSPACE silent !/usr/local/bin/buildifier %
+au BufWritePost *.rs silent !/Users/kevin/.cargo/bin/rustfmt %
 
 " enable True Color support in terminal
 set termguicolors
@@ -116,3 +124,38 @@ endif
 " https://unix.stackexchange.com/a/383044
 autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
 autocmd FileChangedShellPost * echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
+" https://stackoverflow.com/questions/52780939/disable-vim-e211-file-no-longer-available
+:autocmd FileChangedShell * execute
+" https://stackoverflow.com/a/37889460
+autocmd FileType python setlocal indentkeys-=<:>
+autocmd FileType python setlocal indentkeys-=:
+
+nnoremap <Leader>g :silent lgrep<Space>
+nnoremap <silent> [f :lprevious<CR>
+nnoremap <silent> ]f :lnext<CR>
+
+let g:deoplete#enable_at_startup = 1
+
+" Required for operations modifying multiple buffers like rename.
+set hidden
+let g:LanguageClient_serverCommands = {
+  \ 'python': ['/Users/kevin/.local/share/virtualenvs/python-language-server/bin/pyls'],
+  \ 'typescript': ['/usr/local/bin/typescript-language-server', '--stdio'],
+  \ }
+let g:LanguageClient_useVirtualText = "No"
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+" Or map each action separately
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition({ 'gotoCmd': 'tabnew' })<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+"let g:LanguageClient_loggingFile = '/tmp/LanguageClient.log'
+"let g:LanguageClient_loggingLevel = 'INFO'
+"let g:LanguageClient_serverStderr = '/tmp/LanguageServer.log'
+set signcolumn=yes
+nnoremap <Leader>k  :tabnext<CR>
+nnoremap <Leader>j  :tabprev<CR>
+
+if executable("rg")
+  set grepprg=rg\ -s\ --vimgrep\ --no-heading
+  set grepformat=%f:%l:%c:%m,%f:%l:%m
+endif

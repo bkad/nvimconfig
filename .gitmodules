@@ -70,3 +70,12 @@
 [submodule "pack/bkad/start/ropevim"]
 	path = pack/bkad/start/ropevim
 	url = https://github.com/python-rope/ropevim
+[submodule "pack/bkad/start/LanguageClient-neovim"]
+	path = pack/bkad/start/LanguageClient-neovim
+	url = https://github.com/autozimu/LanguageClient-neovim/
+[submodule "pack/bkad/start/deoplete"]
+	path = pack/bkad/start/deoplete
+	url = https://github.com/Shougo/deoplete.nvim
+[submodule "pack/bkad/start/tabnine-vim"]
+	path = pack/bkad/start/tabnine-vim
+	url = https://github.com/zxqfl/tabnine-vim
