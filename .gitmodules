@@ -76,6 +76,6 @@
 [submodule "pack/bkad/start/deoplete"]
 	path = pack/bkad/start/deoplete
 	url = https://github.com/Shougo/deoplete.nvim
-[submodule "pack/bkad/start/tabnine-vim"]
-	path = pack/bkad/start/tabnine-vim
-	url = https://github.com/zxqfl/tabnine-vim
+[submodule "pack/bkad/start/nvim-lspconfig"]
+	path = pack/bkad/start/nvim-lspconfig
+	url = git@github.com:neovim/nvim-lspconfig.git

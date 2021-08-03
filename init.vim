@@ -60,17 +60,7 @@ imap <C-t> <ESC>:tabnew<cr>
 " Remap omni-complete
 inoremap <C-Space> <C-x><C-o>
 
-nnoremap <C-p> :Files<CR>
-
-function TrimWhiteSpace()
-  %s/\s*$//
-  ''
-:endfunction
-
-" Map the F2 key to the clean white space command
-map <F2> :call TrimWhiteSpace()<CR>
-map! <F2> :call TrimWhiteSpace()<CR>
-
+nnoremap <C-p> :FZF<CR>
 
 set wildignore+=*.swp,*.swo,*.swn,*.pyc
 set rtp+=/usr/local/opt/fzf
