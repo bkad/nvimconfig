@@ -60,7 +60,10 @@ imap <C-t> <ESC>:tabnew<cr>
 " Remap omni-complete
 inoremap <C-Space> <C-x><C-o>
 
-nnoremap <C-p> :FZF<CR>
+"nnoremap <C-p> :Telescope find_files<cr>
+nnoremap <C-p> :FZF<cr>
+nnoremap <C-g> :Telescope live_grep<cr>
+nnoremap <C-b> :Telescope buffers<cr>
 
 set wildignore+=*.swp,*.swo,*.swn,*.pyc
 set rtp+=/usr/local/opt/fzf
@@ -84,11 +87,10 @@ let python_highlight_all = 1
 let mapleader = ','
 let g:NERDChristmasTree=1 " more colorful NERDTree
 
-autocmd FileType typescript setlocal completeopt+=menu,preview
-au BufWritePost *.ts,*.html,*.json,*.js silent !/Users/kevin/code/tbcode/tbjs/node_modules/.bin/prettier --loglevel error --write %
-au BufWritePost *.ts silent !cd /Users/kevin/code/tbcode/tbjs && /Users/kevin/code/tbcode/tbjs/node_modules/.bin/eslint --plugin 'simple-import-sort' --parser '@typescript-eslint/parser' --fix --no-eslintrc --rule '"simple-import-sort/sort": [ "error", { "groups": [ ["^\\u0000"], ["^@?\\w"], ["^@tb/.*"], ["^\\."] ] } ]' %:p
-au BufWritePost *.bazel,*.star,WORKSPACE silent !/usr/local/bin/buildifier %
-au BufWritePost *.rs silent !/Users/kevin/.cargo/bin/rustfmt %
+au BufWritePost *.ts,*.html,*.json,*.js silent !/Users/kevin/code/tbcode/tbjs/node_modules/.bin/prettier --loglevel error --write % &
+au BufWritePost *.ts silent !cd /Users/kevin/code/tbcode/tbjs && /Users/kevin/code/tbcode/tbjs/node_modules/.bin/eslint --plugin 'simple-import-sort' --parser '@typescript-eslint/parser' --fix --no-eslintrc --rule '"simple-import-sort/sort": [ "error", { "groups": [ ["^\\u0000"], ["^@?\\w"], ["^@tb/.*"], ["^\\."] ] } ]' %:p &
+au BufWritePost *.bazel,*.star,WORKSPACE silent !/usr/local/bin/buildifier % &
+au BufWritePost *.rs silent !/Users/kevin/.cargo/bin/rustfmt % &
 
 " enable True Color support in terminal
 set termguicolors
@@ -138,6 +140,7 @@ endif
 lua << EOF
 -- import local callbacks module to override goToDefinition behavior
 require('callbacks')
+require('compe-config')
 local nvim_lsp = require('lspconfig')
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -155,7 +158,7 @@ local on_attach = function(client, bufnr)
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
   buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  buf_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+  buf_set_keymap('n', '<leader>a', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
 end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
@@ -169,4 +172,15 @@ for _, lsp in ipairs(servers) do
   }
 }
 end
+
+require('telescope').setup {
+	extensions = {
+		fzf = {
+			fuzzy = true, -- false will only do exact matching
+			override_generic_sorter = false, -- override the generic sorter
+			override_file_sorter = true, -- or `ignore_case` or `respect_case`
+			case_mode = "smart_case", -- the default case_mode is `smart_case`
+		}
+	}
+}
 EOF

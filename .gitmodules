@@ -70,9 +70,21 @@
 [submodule "pack/bkad/start/ropevim"]
 	path = pack/bkad/start/ropevim
 	url = https://github.com/python-rope/ropevim
-[submodule "pack/bkad/start/deoplete"]
-	path = pack/bkad/start/deoplete
-	url = https://github.com/Shougo/deoplete.nvim
 [submodule "pack/bkad/start/nvim-lspconfig"]
 	path = pack/bkad/start/nvim-lspconfig
 	url = git@github.com:neovim/nvim-lspconfig.git
+[submodule "pack/bkad/start/popup.nvim"]
+	path = pack/bkad/start/popup.nvim
+	url = git@github.com:nvim-lua/popup.nvim.git
+[submodule "pack/bkad/start/plenary.nvim"]
+	path = pack/bkad/start/plenary.nvim
+	url = git@github.com:nvim-lua/plenary.nvim.git
+[submodule "pack/bkad/start/telescope.nvim"]
+	path = pack/bkad/start/telescope.nvim
+	url = git@github.com:nvim-telescope/telescope.nvim.git
+[submodule "pack/bkad/start/telescope-fzf-native.nvim"]
+	path = pack/bkad/start/telescope-fzf-native.nvim
+	url = git@github.com:nvim-telescope/telescope-fzf-native.nvim.git
+[submodule "pack/bkad/start/nvim-compe"]
+	path = pack/bkad/start/nvim-compe
+	url = git@github.com:hrsh7th/nvim-compe.git
