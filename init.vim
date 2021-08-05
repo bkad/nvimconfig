@@ -137,9 +137,13 @@ if executable("rg")
   set grepformat=%f:%l:%c:%m,%f:%l:%m
 endif
 
+" remove snipmate deprecation message"
+let g:snipMate = { 'snippet_version' : 1 }
+
 lua << EOF
 -- import local callbacks module to override goToDefinition behavior
 require('callbacks')
+require('plugins')
 require('compe-config')
 local nvim_lsp = require('lspconfig')
 -- Use an on_attach function to only map the following keys
