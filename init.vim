@@ -81,7 +81,7 @@ augroup make
 augroup END
 
 
-noremap <Space> :call NERDComment("n", "Toggle")<cr>
+noremap <Space> :call nerdcommenter#Comment("n", "Toggle")<cr>
 
 let python_highlight_all = 1
 let mapleader = ','
@@ -111,6 +111,11 @@ if has("gui_vimr")
   map <D-S-}> :tabnext<cr>
   imap <D-S-{> <ESC>:tabprevious<cr>i
   imap <D-S-}> <ESC>:tabnext<cr>i
+
+  " delete the buffer rather than just closing the tab
+  " frees the LSP resources behind closed tabs
+  nmap <D-w> :bd<cr>
+  map <D-w> :bd<cr>
 endif
 
 " https://unix.stackexchange.com/a/383044
@@ -128,6 +133,13 @@ nnoremap <silent> ]f :lnext<CR>
 
 let g:deoplete#enable_at_startup = 1
 
+let g:fzf_action = {
+	\ 'enter': 'drop',
+	\ 'ctrl-t': 'tab drop',
+	\ 'ctrl-x': 'split',
+	\ 'ctrl-v': 'vsplit',
+\}
+
 " Required for operations modifying multiple buffers like rename.
 set hidden
 set signcolumn=yes
@@ -139,6 +151,14 @@ endif
 
 " remove snipmate deprecation message"
 let g:snipMate = { 'snippet_version' : 1 }
+
+autocmd FileType lua lua require'cmp'.setup.buffer {
+\  sources = {
+\    { name = 'buffer' },
+\    { name = 'nvim_lua' },
+\  },
+\}
+
 
 lua << EOF
 -- import local callbacks module to override goToDefinition behavior
@@ -158,16 +178,18 @@ local on_attach = function(client, bufnr)
 
   -- Mappings.
   local opts = { noremap=true, silent=true }
-  
+
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
   buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  buf_set_keymap('n', '<leader>a', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+  buf_set_keymap('n', '<leader>a', '<Cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+  buf_set_keymap('n', '<leader>h', '<Cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', '<leader>l', '<Cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
 end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { "pyright", "rust_analyzer", "tsserver", "gopls" }
+local servers = { "pylsp", "rust_analyzer", "tsserver", "gopls" }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
   on_attach = on_attach,
