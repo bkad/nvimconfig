@@ -20,7 +20,10 @@ return require('packer').startup(function()
   use 'nathanaelkane/vim-indent-guides'
   use 'jason0x43/vim-js-indent'
   use 'plasticboy/vim-markdown'
-  use 'cespare/vim-toml'
+  use {
+    'cespare/vim-toml',
+    branch = 'main'
+  }
   use 'editorconfig/editorconfig-vim'
   use {
     'junegunn/fzf',
