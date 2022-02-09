@@ -3,7 +3,7 @@
 local api = vim.api
 local util = vim.lsp.util
 local handlers = vim.lsp.handlers
-local log = vim.lsp.log
+local log = require 'vim.lsp.log'
 
 -- open a result in an existing tab, failing that, a new tab
 local tab_drop_result = function(result)
@@ -13,40 +13,30 @@ local tab_drop_result = function(result)
   api.nvim_command("tab drop "..fname)
 end
 
-local location_handler = function(_, method, result)
+local location_handler = function(_, result, ctx, _)
   if result == nil or vim.tbl_isempty(result) then
-  local _ = log.info() and log.info(method, 'No location found')
-  return nil
+    local _ = log.info() and log.info(ctx.method, 'No location found')
+    return nil
   end
-  local target_result
-
-  -- Save position in jumplist
-  vim.cmd "normal! m'"
-
-  --api.nvim_command('tab split')
-
+  -- textDocument/definition can return Location or Location[]
+  -- https://microsoft.github.io/language-server-protocol/specifications/specification-current/#textDocument_definition
   if vim.tbl_islist(result) then
+    local target_result
     target_result = result[1]
     tab_drop_result(target_result)
     util.jump_to_location(target_result)
     if #result > 1 then
       util.set_qflist(util.locations_to_items(result))
+      -- open alternate locations
       api.nvim_command("copen")
-      api.nvim_command("wincmd p")
     end
   else
-    target_result = result
-    tab_drop_result(target_result)
-    util.jump_to_location(target_result)
+    tab_drop_result(result)
+    util.jump_to_location(result)
   end
-
-  api.nvim_buf_set_option(0, 'buflisted', true)
-  local range = target_result.range or target_result.targetSelectionRange
-  local row = range.start.line
-  local col = util._get_line_byte_from_position(0, range.start)
-  api.nvim_win_set_cursor(0, {row + 1, col})
 end
 
+-- don't warn about the document already beind edited, apply the changes
 vim.lsp.util.apply_text_document_edit = function(text_document_edit, index)
   local text_document = text_document_edit.textDocument
   local bufnr = vim.uri_to_bufnr(text_document.uri)

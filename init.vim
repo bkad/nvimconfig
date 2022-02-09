@@ -161,6 +161,8 @@ autocmd FileType lua lua require'cmp'.setup.buffer {
 
 
 lua << EOF
+-- lsp logs are located at ~/.cache/nvim/lsp.log
+-- vim.lsp.set_log_level('debug')
 -- import local callbacks module to override goToDefinition behavior
 require('callbacks')
 require('plugins')
@@ -189,7 +191,7 @@ end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { "pylsp", "rust_analyzer", "tsserver", "gopls" }
+local servers = { "pylsp", "rust_analyzer", "gopls" }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
   on_attach = on_attach,
@@ -198,6 +200,14 @@ for _, lsp in ipairs(servers) do
   }
 }
 end
+
+nvim_lsp.tsserver.setup {
+  on_attach = on_attach,
+  flags = {
+    debounce_text_changes = 150,
+  },
+  filetypes = { "typescript" },
+}
 
 require('telescope').setup {
 	extensions = {
@@ -209,4 +219,12 @@ require('telescope').setup {
 		}
 	}
 }
+
+
+vim.cmd([[
+  augroup CmpDebounceAuGroup
+    au!
+    au TextChangedI * lua require("debounce").debounce()
+  augroup end
+]])
 EOF
