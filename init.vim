@@ -57,9 +57,6 @@ imap <C-tab> <ESC>:tabnext<cr>i
 nmap <C-t> :tabnew<cr>
 imap <C-t> <ESC>:tabnew<cr>
 
-" Remap omni-complete
-inoremap <C-Space> <C-x><C-o>
-
 "nnoremap <C-p> :Telescope find_files<cr>
 nnoremap <C-p> :FZF<cr>
 nnoremap <C-g> :Telescope live_grep<cr>
@@ -219,12 +216,4 @@ require('telescope').setup {
 		}
 	}
 }
-
-
-vim.cmd([[
-  augroup CmpDebounceAuGroup
-    au!
-    au TextChangedI * lua require("debounce").debounce()
-  augroup end
-]])
 EOF
