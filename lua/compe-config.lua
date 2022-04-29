@@ -10,7 +10,6 @@ cmp.setup {
   },
   mapping = {
     ['<CR>'] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false }),
-    ['<C-Space>'] = cmp.complete({ reason = cmp.ContextReason.Auto }),
   },
   completion = {
     autocomplete = false,
