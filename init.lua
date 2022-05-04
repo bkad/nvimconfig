@@ -71,6 +71,7 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
 })
 
 vim.keymap.set('n', '<Space>', ':call nerdcommenter#Comment("n", "Toggle")<cr>')
+vim.keymap.set('v', '<Space>', ':call nerdcommenter#Comment("n", "Toggle")<cr>')
 
 vim.g.python_highlight_all = 1
 vim.g.mapleader = ','
