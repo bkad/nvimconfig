@@ -145,14 +145,6 @@ vim.api.nvim_create_autocmd({ 'FileChangedShell' }, {
   command = 'execute'
 })
 
--- https://stackoverflow.com/a/37889460
-vim.api.nvim_create_autocmd({ 'FileType'}, {
-  pattern = 'python',
-  callback = function()
-    vim.opt_local.indent_keys:remove({ '<:>', ':' })
-  end
-})
-
 vim.keymap.set('n', '<leader>g', ':lgrep<space>', { silent = true })
 vim.keymap.set('n', '[f', ':lprevious<cr>', { silent = true })
 vim.keymap.set('n', ']f', ':lnext<cr>', { silent = true })
