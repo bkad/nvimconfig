@@ -5,7 +5,9 @@ vim.opt.formatoptions = 'cqrol'
 vim.g.do_filetype_lua = 1
 vim.g.did_load_filetype = 0
 
-vim.keymap.set('n', '<C-J>', 'vip=')
+-- needed for gui nvims other than vimr
+--vim.o.guifont = "InconsolataGo"
+
 vim.opt.showmatch = true
 vim.opt.hls = false
 vim.opt.number = true
