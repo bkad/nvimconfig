@@ -20,12 +20,12 @@ vim.g.python_host_prog = '/Users/kevin/.local/share/virtualenvs/neovim2/bin/pyth
 vim.g.python3_host_prog = '/Users/kevin/.local/share/virtualenvs/neovim3/bin/python'
 
 -- Adjust zenburn's garish search/visual colors.
-vim.highlight.create('IncSearch', { guifg = 'NONE', guibg = '#545449' }, false)
-vim.highlight.create('Search', { guifg = 'NONE', guibg = '#545449' }, false)
-vim.highlight.create('Visual', { guifg = 'NONE', guibg = '#444444' }, false)
-vim.highlight.create('VisualNOS', { guifg = 'NONE', guibg = '#444444' }, false)
-vim.highlight.create('IndentGuidesOdd', { guibg = '#353535' }, false)
-vim.highlight.create('IndentGuidesEven', { guibg = '#494949' }, false)
+vim.api.nvim_set_hl(0, 'IncSearch', { fg = 'NONE', bg = '#545449' })
+vim.api.nvim_set_hl(0, 'Search', { fg = 'NONE', bg = '#545449' })
+vim.api.nvim_set_hl(0, 'Visual', { fg = 'NONE', bg = '#444444' })
+vim.api.nvim_set_hl(0, 'VisualNOS', { fg = 'NONE', bg = '#444444' })
+vim.api.nvim_set_hl(0, 'IndentGuidesOdd', { bg = '#353535' })
+vim.api.nvim_set_hl(0, 'IndentGuidesEven', { bg = '#494949' })
 
 vim.keymap.set('', 'w', '<Plug>CamelCaseMotion_w', { silent = true })
 vim.keymap.set('', 'W', '<Plug>CamelCaseMotion_b', { silent = true })
@@ -102,8 +102,7 @@ vim.g.indent_guides_enable_on_vim_startup = 1
 vim.g.indent_guides_auto_colors = 1
 vim.opt.colorcolumn = '+0'
 
--- internal api, could break
-vim.highlight.create('ColorColumn', { guibg = '#4E4E4E' }, false)
+vim.api.nvim_set_hl(0, 'ColorColumn', { bg = '#4E4E4E' })
 
 vim.g.indent_guides_auto_colors = 0
 
