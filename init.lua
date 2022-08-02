@@ -181,7 +181,8 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
 })
 
 
--- lsp logs are located at ~/.cache/nvim/lsp.log
+-- lsp logs are located at ~/.cache/nvim/lsp.log or ~/.local/state/nvim/lsp.log
+-- depending on if you're v7 or v8
 -- vim.lsp.set_log_level('debug')
 -- import local callbacks module to override goToDefinition behavior
 require('callbacks')
