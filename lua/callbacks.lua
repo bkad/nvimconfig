@@ -36,12 +36,12 @@ local location_handler = function(_, result, ctx, _)
   end
 end
 
--- don't warn about the document already beind edited, apply the changes
-vim.lsp.util.apply_text_document_edit = function(text_document_edit, index)
+-- don't warn about the document already being edited, apply the changes
+vim.lsp.util.apply_text_document_edit = function(text_document_edit, index, offset_encoding)
   local text_document = text_document_edit.textDocument
   local bufnr = vim.uri_to_bufnr(text_document.uri)
 
-  vim.lsp.util.apply_text_edits(text_document_edit.edits, bufnr)
+  vim.lsp.util.apply_text_edits(text_document_edit.edits, bufnr, offset_encoding)
 end
 
 handlers['textDocument/declaration']    = location_handler
