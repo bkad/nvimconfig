@@ -79,6 +79,11 @@ vim.g.python_highlight_all = 1
 vim.g.mapleader = ','
 
 vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
+  pattern = { '*.py' },
+  command = 'silent !/Users/kevin/.local/bin/black % &'
+})
+
+vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
   pattern = { '*.ts', '*.html', '*.json', '*.js' },
   command = 'silent !/Users/kevin/code/tbcode/tbjs/node_modules/.bin/prettier --loglevel error --write % &'
 })
@@ -209,7 +214,7 @@ end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { "pylsp", "rust_analyzer", "gopls" }
+local servers = { "ruff_lsp", "rust_analyzer", "gopls", "starlark_rust" }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
   on_attach = on_attach,
