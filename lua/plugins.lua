@@ -39,6 +39,7 @@ return require('packer').startup(function()
       { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
     }
   }
+  use 'nvim-telescope/telescope-live-grep-args.nvim'
   use {
     'hrsh7th/nvim-cmp',
     requires = {

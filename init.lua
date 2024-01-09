@@ -45,7 +45,7 @@ vim.keymap.set('i', '<C-t>', '<ESC>:tabnew<cr>')
 
 -- vim.keymap.set('n', '<C-b>', ':Telescope find_files<cr>')
 vim.keymap.set('n', '<C-p>', ':FZF<cr>')
-vim.keymap.set('n', '<C-g>', ':Telescope live_grep<cr>')
+vim.keymap.set("n", "<C-g>", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>")
 vim.keymap.set('n', '<C-b>', ':Telescope buffers<cr>')
 
 vim.opt.wildignore:append({ '*.swp', '*.swo', '*.swn', '*.pyc' })
