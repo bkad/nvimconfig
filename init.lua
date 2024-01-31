@@ -51,16 +51,6 @@ vim.keymap.set('n', '<C-b>', ':Telescope buffers<cr>')
 vim.opt.wildignore:append({ '*.swp', '*.swo', '*.swn', '*.pyc' })
 vim.opt.rtp:append({ '/usr/local/opt/fzf/' })
 
--- Go specific settings
-local go_group = vim.api.nvim_create_augroup('go', { clear = true })
-vim.api.nvim_create_autocmd({ 'FileType' }, {
-  group = go_group,
-  pattern = 'go',
-  callback = function()
-    vim.opt_local.expand_tab = false
-  end
-})
-
 local make_group = vim.api.nvim_create_augroup('make', { clear = true })
 vim.api.nvim_create_autocmd({ 'FileType' }, {
   group = make_group,
@@ -212,23 +202,28 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<leader>l', vim.diagnostic.goto_next, opts)
 end
 
+local lsp_flags = { debounce_text_changes = 150 }
+
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { "ruff_lsp", "rust_analyzer", "gopls", "starlark_rust" }
+local servers = { "ruff_lsp", "rust_analyzer", "gopls", "pyright", "tsserver" }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
   on_attach = on_attach,
-  flags = {
-    debounce_text_changes = 150,
-  }
+  flags = lsp_flags,
 }
 end
 
+-- https://github.com/cameron-martin/bazel-lsp
+nvim_lsp.starlark_rust.setup {
+  on_attach = on_attach,
+  flags = lsp_flags,
+  cmd = { "bazel-lsp" },
+}
+
 nvim_lsp.tsserver.setup {
   on_attach = on_attach,
-  flags = {
-    debounce_text_changes = 150,
-  },
+  flags = lsp_flags,
   filetypes = { "typescript" },
 }
 
