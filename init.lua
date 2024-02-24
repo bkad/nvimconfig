@@ -5,8 +5,25 @@ vim.opt.formatoptions = 'cqrol'
 vim.g.do_filetype_lua = 1
 vim.g.did_load_filetype = 0
 
--- needed for gui nvims other than vimr
---vim.o.guifont = "InconsolataGo"
+-- Neovide settingg
+if vim.g.neovide then
+  vim.keymap.set('n', '<D-w>', ':bd<cr>')
+  vim.keymap.set('i', '<D-w>', '<ESC>:bd<cr>')
+
+  vim.keymap.set('n', '<D-{>', ':tabprevious<cr>')
+  vim.keymap.set('i', '<D-{>', '<ESC>:tabprevious<cr>')
+
+  vim.keymap.set('n', '<D-}>', ':tabnext<cr>')
+  vim.keymap.set('i', '<D-}>', '<ESC>:tabnext<cr>')
+
+  vim.keymap.set('n', '<D-t>', ':tabnew<cr>')
+  vim.keymap.set('i', '<D-t>', '<ESC>:tabnew<cr>')
+
+  vim.keymap.set('n', '<D-s>', ':w<cr>')
+  vim.keymap.set('i', '<D-s>', '<ESC>:w<cr>')
+
+  vim.o.guifont = "Inconsolata for Powerline:h14"
+end
 
 vim.opt.showmatch = true
 vim.opt.hls = false
