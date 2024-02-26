@@ -92,21 +92,21 @@ vim.g.mapleader = ','
 
 vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
   pattern = { '*.py' },
-  command = 'silent !/Users/kevin/.local/bin/black % &'
+  command = 'silent !ruff format % &; ruff check --select I --fix % &'
 })
 
-vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
-  pattern = { '*.ts', '*.html', '*.json', '*.js' },
-  command = 'silent !/Users/kevin/code/tbcode/tbjs/node_modules/.bin/prettier --loglevel error --write % &'
-})
+--vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
+  --pattern = { '*.ts', '*.html', '*.json', '*.js' },
+  --command = 'silent !/Users/kevin/code/tbcode/tbjs/node_modules/.bin/prettier --loglevel error --write % &'
+--})
 
-vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
-  pattern = '*.ts',
-  command = [[silent !cd /Users/kevin/code/tbcode/tbjs && /Users/kevin/code/tbcode/tbjs/node_modules/.bin/eslint --plugin 'simple-import-sort' --parser '@typescript-eslint/parser' --fix --no-eslintrc --rule '"simple-import-sort/sort": [ "error", { "groups": [ ["^\\u0000"], ["^@?\\w"], ["^@tb/.*"], ["^\\."] ] } ]' %:p &]]
-})
+--vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
+  --pattern = '*.ts',
+  --command = [[silent !cd /Users/kevin/code/tbcode/tbjs && /Users/kevin/code/tbcode/tbjs/node_modules/.bin/eslint --plugin 'simple-import-sort' --parser '@typescript-eslint/parser' --fix --no-eslintrc --rule '"simple-import-sort/sort": [ "error", { "groups": [ ["^\\u0000"], ["^@?\\w"], ["^@tb/.*"], ["^\\."] ] } ]' %:p &]]
+--})
 vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
   pattern = { '*.bazel', '*.star', 'WORKSPACE' },
-  command = 'silent !/usr/local/bin/buildifier % &'
+  command = 'silent !buildifier % &'
 })
 vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
   pattern = '*.rs',
