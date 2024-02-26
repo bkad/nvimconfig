@@ -22,6 +22,11 @@ if vim.g.neovide then
   vim.keymap.set('n', '<D-s>', ':w<cr>')
   vim.keymap.set('i', '<D-s>', '<ESC>:w<cr>')
 
+  -- copy/paste
+  vim.keymap.set('n', '<D-v>', '"+p')
+  vim.keymap.set('i', '<D-v>', '<ESC>"+pi')
+  vim.keymap.set('n', '<D-c>', '"+y')
+
   vim.o.guifont = "Inconsolata for Powerline:h14"
 end
 
